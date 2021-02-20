@@ -3,16 +3,17 @@ from django.db import models
 # Create your models here.
 
 
-class GeoData(models.Model):
+class Geolocation(models.Model):
 
-    ip = models.models.CharField(max_length=20)
-    hostname = models.models.CharField(max_length=255)
-    continent = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    region = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
+    ip = models.CharField(max_length=20, unique=True)
+    hostname = models.CharField(max_length=255, blank=True)
 
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(blank=False)
+    longitude = models.FloatField(blank=False)
+
+    continent = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=50, blank=True)
+    region = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
 
     #location_data = models.JSONField()

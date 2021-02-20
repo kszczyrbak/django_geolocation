@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Geolocation
 
-
-# TODO:_ add password hashing
 
 class RegisterSerializer(serializers.ModelSerializer):
 
@@ -18,3 +17,25 @@ class RegisterSerializer(serializers.ModelSerializer):
             validated_data['username'],
             password=validated_data['password'],
         )
+
+
+class GeolocationPostSerializer(serializers.Serializer):
+
+    hostname = serializers.CharField(max_length=255, required=True)
+
+    def create(self, validated_data):
+        return {
+            'host': validated_data["host"]
+        }
+
+
+class GeolocationSerializer(serializers.ModelSerializer):
+
+    hostname = serializers.CharField(max_length=255, required=True)
+
+    class Meta:
+        model = Geolocation
+        fields = '__all__'
+
+    def create(self, validated_data):
+        return Geolocation.objects.create(**validated_data)
