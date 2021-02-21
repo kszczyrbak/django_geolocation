@@ -8,12 +8,14 @@ from .services import IpstackService, JsonAttributeParser
 from django.db import IntegrityError, Error
 from rest_framework.response import Response
 from .regex import IPV4_IPV6_HOSTNAME_REGEX
+from rest_framework.permissions import IsAuthenticated
 
 
 class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
     lookup_field = 'hostname'
     lookup_value_regex = "(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
+    permission_classes = [IsAuthenticated]
 
     def get_object_by_hostname(self, hostname):
         try:
