@@ -5,7 +5,7 @@ from django.db import models
 
 class Geolocation(models.Model):
 
-    ip = models.CharField(max_length=20, unique=True)
+    ip = models.CharField(max_length=50, unique=True)
     hostname = models.CharField(max_length=255, blank=True)
 
     latitude = models.FloatField(blank=False)

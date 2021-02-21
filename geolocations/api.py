@@ -7,7 +7,7 @@ from .responses import model_created_response, bad_request_response, model_alrea
 from .services import IpstackService, JsonAttributeParser
 from django.db import IntegrityError, Error
 from rest_framework.response import Response
-from .regex import IPV4_IPV6_HOSTNAME_REGEX
+from .constants import IPV4_IPV6_OR_URL_REGEX
 from rest_framework.permissions import IsAuthenticated
 from requests.exceptions import ConnectionError, HTTPError
 
@@ -15,8 +15,8 @@ from requests.exceptions import ConnectionError, HTTPError
 class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
     lookup_field = 'hostname'
-    lookup_value_regex = "(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
-    permission_classes = [IsAuthenticated]
+    lookup_value_regex = IPV4_IPV6_OR_URL_REGEX
+    # permission_classes = [IsAuthenticated]
 
     def get_object_by_hostname(self, hostname):
         try:
