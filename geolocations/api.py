@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from .constants import IPV4_IPV6_OR_URL_REGEX
 from rest_framework.permissions import IsAuthenticated
 from requests.exceptions import ConnectionError, HTTPError
+from django.db.models import Q
 
 
 class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
@@ -18,19 +19,21 @@ class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixin
     lookup_value_regex = IPV4_IPV6_OR_URL_REGEX
     # permission_classes = [IsAuthenticated]
 
-    def get_object_by_hostname(self, hostname):
-        try:
-            return Geolocation.objects.get(hostname=hostname)
-        except Geolocation.DoesNotExist:
-            raise Http404
+    def get_object_by_hostname_or_ip(self, hostname):
+        geolocation = Geolocation.objects.filter(
+            Q(hostname=hostname) | Q(ip=hostname)).first()
+        if geolocation:
+            return geolocation
+
+        raise Http404
 
     def retrieve(self, request, hostname=None):
-        geolocation = self.get_object_by_hostname(hostname)
+        geolocation = self.get_object_by_hostname_or_ip(hostname)
         serializer = GeolocationSerializer(geolocation)
         return Response(serializer.data)
 
     def destroy(self, request, hostname=None):
-        geolocation = self.get_object_by_hostname(hostname)
+        geolocation = self.get_object_by_hostname_or_ip(hostname)
         geolocation.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
