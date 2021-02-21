@@ -29,7 +29,7 @@ IPSTACK_KEY = os.environ['IPSTACK_KEY']
 DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost",
-                 "https://kszczyrbak-django-geolocations.herokuapp.com"]
+                 "kszczyrbak-django-geolocations.herokuapp.com"]
 
 
 # Application definition
