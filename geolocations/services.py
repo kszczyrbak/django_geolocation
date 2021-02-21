@@ -10,11 +10,10 @@ class IpstackService:
     @staticmethod
     def get_geodata_for_host(hostname):
         if API_KEY:
-
             data = requests.get(
-                f"http://api.ipstack.com/{hostname}?access_key={API_KEY}")
+                f"http://api.ipstack.com/{hostname}?access_key={API_KEY}", timeout=3)
+            data.raise_for_status()
 
-            print(data.json())
             return data.json()
 
 

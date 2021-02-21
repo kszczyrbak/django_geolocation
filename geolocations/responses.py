@@ -35,3 +35,12 @@ def server_error_response(model, errors=""):
         "message": "Internal server error. Please try again later",
         "errors": errors
     }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+def external_api_error_response(model, errors=""):
+    return Response({
+        "status": "fail",
+        "data": model,
+        "message": "External API error. Please try again later",
+        "errors": errors
+    }, status=status.HTTP_503_SERVICE_UNAVAILABLE)

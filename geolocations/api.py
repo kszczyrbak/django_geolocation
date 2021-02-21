@@ -3,12 +3,13 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from .models import Geolocation
 from .serializers import GeolocationSerializer, GeolocationPostSerializer
-from .responses import model_created_response, bad_request_response, model_already_exists_response, server_error_response
+from .responses import model_created_response, bad_request_response, model_already_exists_response, server_error_response, external_api_error_response
 from .services import IpstackService, JsonAttributeParser
 from django.db import IntegrityError, Error
 from rest_framework.response import Response
 from .regex import IPV4_IPV6_HOSTNAME_REGEX
 from rest_framework.permissions import IsAuthenticated
+from requests.exceptions import ConnectionError, HTTPError
 
 
 class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
@@ -42,7 +43,13 @@ class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixin
 
         data = geolocation_post_serializer.validated_data
         hostname = data['hostname']
-        ipstack_response = IpstackService.get_geodata_for_host(hostname)
+
+        try:
+            ipstack_response = IpstackService.get_geodata_for_host(hostname)
+        except ConnectionError:
+            return external_api_error_response(data)
+        except HTTPError:
+            return server_error_response(data)
 
         JsonAttributeParser.add_attributes(
             ipstack_response,
