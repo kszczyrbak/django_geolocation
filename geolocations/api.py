@@ -19,6 +19,11 @@ class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixin
     lookup_value_regex = IPV4_IPV6_OR_URL_REGEX
     # permission_classes = [IsAuthenticated]
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return GeolocationPostSerializer
+        return GeolocationSerializer
+
     def get_object_by_hostname_or_ip(self, hostname):
         geolocation = Geolocation.objects.filter(
             Q(hostname=hostname) | Q(ip=hostname)).first()
