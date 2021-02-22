@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# By default, load_dotenv doesn't override the already existing variables
+# with those from the file, so your Docker configuration should be safe
+from dotenv import load_dotenv
+load_dotenv("dev.env")
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
