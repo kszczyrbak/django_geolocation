@@ -1,5 +1,6 @@
 import requests
 from django.conf import settings
+from .exceptions import HostNotFoundError
 
 API_KEY = getattr(settings, "IPSTACK_KEY", None)
 
@@ -13,6 +14,9 @@ class IpstackService:
             data = requests.get(
                 f"http://api.ipstack.com/{hostname}?access_key={API_KEY}", timeout=3)
             data.raise_for_status()
+            data_json = data.json()
+            if data_json['type'] is None:
+                raise HostNotFoundError
 
             return data.json()
 

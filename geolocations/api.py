@@ -11,12 +11,15 @@ from .constants import IPV4_IPV6_OR_URL_REGEX
 from rest_framework.permissions import IsAuthenticated
 from requests.exceptions import ConnectionError, HTTPError
 from django.db.models import Q
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .exceptions import HostNotFoundError
 
 
 class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
     lookup_field = 'hostname'
     lookup_value_regex = IPV4_IPV6_OR_URL_REGEX
+    # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
@@ -54,6 +57,8 @@ class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixin
 
         try:
             ipstack_response = IpstackService.get_geodata_for_host(hostname)
+        except HostNotFoundError:
+            return bad_request_response(data, "Provided hostname not found in ipstack response")
         except ConnectionError:
             return external_api_error_response(data)
         except HTTPError:
