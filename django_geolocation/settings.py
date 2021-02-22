@@ -55,14 +55,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-DEFAULT_RENDERER_CLASSES = (
-    'rest_framework.renderers.JSONRenderer',
-)
-
-if DEBUG:
-    DEFAULT_RENDERER_CLASSES = (
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    )
 
 ROOT_URLCONF = 'django_geolocation.urls'
 
@@ -84,6 +76,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_geolocation.wsgi.application'
 
+DEFAULT_RENDERER_CLASSES = (
+    'rest_framework.renderers.JSONRenderer',
+)
+
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
