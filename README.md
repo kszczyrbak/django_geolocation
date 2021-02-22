@@ -75,3 +75,22 @@ The created API consists of three endpoints:
 
 
   **This API has disabled trailing slash. When making API calls, make sure to drop the slash at the end!**
+
+# Test data
+
+This repo contains inital test data that automatically loads into the composed Docker instance.
+
+To load the data locally, use:
+
+```python manage.py loaddata data.json```
+
+## Test user
+
+A test user account is included in the test data:
+
+```
+"username": "testuser"
+"password": "testpassword"
+```
+
+For test geolocations, please refer to the `data.json` file.
