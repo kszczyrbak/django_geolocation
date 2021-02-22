@@ -67,11 +67,11 @@ or, but only if you are not on Windows, use the installed Gunicorn WSGI:
 The created API consists of three endpoints:
 
 
-| URL                   | Verb   | Description                       | Detail param value |
-| --------------------- | ------ | --------------------------------- | ------------------ |
-| /api/locations        | POST   | Add geolocation data for hostname | n/a                |
-| /api/locations/{host} | GET    | Add a new car                     | ipv4, ipv6 or URL  |
-| /api/locations/{host} | DELETE | Rate a car                        | ipv4, ipv6 or URL  |
+| URL                   | Verb   | Description                             | Detail param value |
+| --------------------- | ------ | --------------------------------------- | ------------------ |
+| /api/locations        | POST   | Add geolocation data for hostname       | n/a                |
+| /api/locations/{host} | GET    | Get geolocation data for hostname in db | ipv4, ipv6 or URL  |
+| /api/locations/{host} | DELETE | Get geolocation data for hostname in db | ipv4, ipv6 or URL  |
 
 
   **This API has disabled trailing slash. When making API calls, make sure to drop the slash at the end!**
