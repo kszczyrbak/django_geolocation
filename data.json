@@ -1,0 +1,83 @@
+[{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$see7AcnxPYTL$hVK2wHuW4V+SeYr9X4nhYljvfoDFVJJl7n4aMlIM+ng=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-22T12:08:23.350Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}, {
+    "model": "geolocations.geolocation",
+    "pk": 1,
+    "fields": {
+        "ip": "134.201.250.155",
+        "hostname": "134.201.250.155",
+        "latitude": 34.0655517578125,
+        "longitude": -118.24053955078125,
+        "continent": "North America",
+        "country": "United States",
+        "region": "California",
+        "city": "Los Angeles"
+    }
+}, {
+    "model": "geolocations.geolocation",
+    "pk": 2,
+    "fields": {
+        "ip": "54.196.59.195",
+        "hostname": "https://kszczyrbak-django-cars.herokuapp.com",
+        "latitude": 39.043701171875,
+        "longitude": -77.47419738769531,
+        "continent": "North America",
+        "country": "United States",
+        "region": "Virginia",
+        "city": "Ashburn"
+    }
+}, {
+    "model": "geolocations.geolocation",
+    "pk": 3,
+    "fields": {
+        "ip": "34.192.53.253",
+        "hostname": "https://kszczyrbak-django-geolocations.herokuapp.com",
+        "latitude": 39.043701171875,
+        "longitude": -77.47419738769531,
+        "continent": "North America",
+        "country": "United States",
+        "region": "Virginia",
+        "city": "Ashburn"
+    }
+}, {
+    "model": "geolocations.geolocation",
+    "pk": 4,
+    "fields": {
+        "ip": "2606:2800:220:1:248:1893:25c8:1946",
+        "hostname": "example.com",
+        "latitude": 39.043701171875,
+        "longitude": -77.47419738769531,
+        "continent": "North America",
+        "country": "United States",
+        "region": "Virginia",
+        "city": "Ashburn"
+    }
+}, {
+    "model": "geolocations.geolocation",
+    "pk": 5,
+    "fields": {
+        "ip": "2001:4860:4860::8888",
+        "hostname": "2001:4860:4860::8888",
+        "latitude": 37.38801956176758,
+        "longitude": -122.07431030273438,
+        "continent": "North America",
+        "country": "United States",
+        "region": "California",
+        "city": "Mountain View"
+    }
+}]

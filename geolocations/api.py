@@ -19,8 +19,8 @@ class GeolocationViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixin
 
     lookup_field = 'hostname'
     lookup_value_regex = IPV4_IPV6_OR_URL_REGEX
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == 'create':
